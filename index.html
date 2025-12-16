@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kill Format</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .kill-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        .format-text {
+            color: #ff6b35;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            transition: border-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .clear-btn {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .clear-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .char-count {
+            text-align: right;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 35px;
+            right: 35px;
+            display: flex;
+            gap: 3px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 3px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .lang-btn {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 10px;
+            transition: all 0.3s;
+            background: transparent;
+            color: #999;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(245, 245, 245, 0.8);
+            color: #666;
+        }
+
+        .author {
+            text-align: center;
+            margin-top: 30px;
+            color: black;
+            font-size: 0.95em;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .author-name {
+            color: #ff6b35;
+            font-weight: 700;
+            font-style: normal;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-toggle">
+        <button class="lang-btn active" data-lang="es">Español</button>
+        <button class="lang-btn" data-lang="en">English</button>
+    </div>
+
+    <div class="container">
+        <h1>🔪 <span class="kill-text">Kill</span> <span class="format-text">Format</span></h1>
+        <p class="subtitle" data-translate="subtitle">Elimina todo el formato de tu texto y cópialo limpio</p>
+        
+        <textarea 
+            id="textInput" 
+            data-translate="placeholder"
+            placeholder="Pega aquí tu texto con formato...&#10;&#10;Se eliminará automáticamente todo el formato (negritas, cursivas, colores, etc.) y podrás copiarlo como texto plano."
+        ></textarea>
+        
+        <div class="char-count">
+            <span id="charCount">0 <span data-translate="characters">caracteres</span></span>
+        </div>
+
+        <div class="button-container">
+            <button class="copy-btn" id="copyBtn">
+                📋 <span data-translate="copyBtn">Copy</span>
+            </button>
+            <button class="clear-btn" id="clearBtn">
+                🗑️ <span data-translate="clearBtn">Limpiar</span>
+            </button>
+        </div>
+
+        <div class="author">
+            <span data-translate="author">Autor</span>: Yair <span class="author-name">Naranjo</span>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        ✓ Texto copiado al portapapeles
+    </div>
+
+    <script>
+        // Traducciones
+        const translations = {
+            es: {
+                subtitle: 'Elimina todo el formato de tu texto y cópialo limpio',
+                placeholder: 'Pega aquí tu texto con formato...\n\nSe eliminará automáticamente todo el formato (negritas, cursivas, colores, etc.) y podrás copiarlo como texto plano.',
+                characters: 'caracteres',
+                copyBtn: 'Copiar',
+                clearBtn: 'Limpiar',
+                author: 'Autor',
+                notifyCopied: '✓ Texto copiado al portapapeles',
+                notifyEmpty: '⚠️ No hay texto para copiar',
+                notifyCleared: '🗑️ Texto eliminado',
+                notifyFormatRemoved: '📝 Formato eliminado automáticamente'
+            },
+            en: {
+                subtitle: 'Remove all formatting from your text and copy it clean',
+                placeholder: 'Paste your formatted text here...\n\nAll formatting (bold, italics, colors, etc.) will be automatically removed and you can copy it as plain text.',
+                characters: 'characters',
+                copyBtn: 'Copy',
+                clearBtn: 'Clear',
+                author: 'Author',
+                notifyCopied: '✓ Text copied to clipboard',
+                notifyEmpty: '⚠️ No text to copy',
+                notifyCleared: '🗑️ Text cleared',
+                notifyFormatRemoved: '📝 Format removed automatically'
+            }
+        };
+
+        let currentLang = 'es';
+
+        const textInput = document.getElementById('textInput');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const notification = document.getElementById('notification');
+        const charCount = document.getElementById('charCount');
+        const langButtons = document.querySelectorAll('.lang-btn');
+
+        // Función para cambiar idioma
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Actualizar todos los elementos con data-translate
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Actualizar botones de idioma
+            langButtons.forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Actualizar contador
+            updateCharCount();
+        }
+
+        // Event listeners para botones de idioma
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                changeLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+
+        // Actualizar contador de caracteres
+        function updateCharCount() {
+            const count = textInput.value.length;
+            const charWord = translations[currentLang].characters;
+            charCount.innerHTML = `${count.toLocaleString()} <span data-translate="characters">${charWord}</span>`;
+        }
+
+        textInput.addEventListener('input', updateCharCount);
+
+        // Función para copiar texto
+        copyBtn.addEventListener('click', async () => {
+            const text = textInput.value;
+            
+            if (!text.trim()) {
+                showNotification(translations[currentLang].notifyEmpty, '#ff9800');
+                return;
+            }
+
+            try {
+                // Copiar al portapapeles como texto plano
+                await navigator.clipboard.writeText(text);
+                showNotification(translations[currentLang].notifyCopied);
+                
+                // Efecto visual en el botón
+                copyBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    copyBtn.style.transform = 'scale(1)';
+                }, 100);
+            } catch (err) {
+                // Fallback para navegadores antiguos
+                textInput.select();
+                document.execCommand('copy');
+                showNotification(translations[currentLang].notifyCopied);
+            }
+        });
+
+        // Función para limpiar el texto
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            updateCharCount();
+            textInput.focus();
+            showNotification(translations[currentLang].notifyCleared, '#666');
+        });
+
+        // Función para mostrar notificación
+        function showNotification(message, color = '#4caf50') {
+            notification.textContent = message;
+            notification.style.background = color;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2500);
+        }
+
+        // Detectar Ctrl+V para mostrar mensaje útil
+        textInput.addEventListener('paste', () => {
+            setTimeout(() => {
+                showNotification(translations[currentLang].notifyFormatRemoved, '#ff6b35');
+            }, 100);
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + Enter para copiar
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                copyBtn.click();
+            }
+            
+            // Ctrl/Cmd + L para limpiar
+            if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+                e.preventDefault();
+                clearBtn.click();
+            }
+        });
+
+        // Auto-focus en el textarea al cargar
+        window.addEventListener('load', () => {
+            textInput.focus();
+        });
+    </script>
+</body>
+</html>
